@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Privacy Policy for DashUI OBD-II and dashobd.com." />
+  <title>Privacy Policy | DashUI OBD-II</title>
+
+  <style>
+    :root {
+      --bg: #05070a;
+      --panel: #0b1017;
+      --panel-2: #101823;
+      --text: #f4f7fb;
+      --muted: #a9b4c2;
+      --soft: #7d8998;
+      --line: rgba(255,255,255,0.12);
+      --accent: #39ff88;
+      --accent-2: #74f7ff;
+      --danger: #ff4d6d;
+      --shadow: 0 28px 80px rgba(0,0,0,0.45);
+      --radius: 24px;
+      --max: 1080px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(57,255,136,0.14), transparent 28rem),
+        radial-gradient(circle at 85% 15%, rgba(116,247,255,0.10), transparent 24rem),
+        linear-gradient(180deg, #05070a 0%, #080c12 45%, #05070a 100%);
+      line-height: 1.68;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 1rem;
+      padding: 0.75rem 1rem;
+      background: var(--accent);
+      color: #001508;
+      border-radius: 999px;
+      z-index: 999;
+      font-weight: 800;
+    }
+
+    .skip-link:focus {
+      left: 1rem;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(5, 7, 10, 0.78);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      font-size: 1.05rem;
+    }
+
+    .brand-mark {
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 0.75rem;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(135deg, rgba(57,255,136,0.25), rgba(116,247,255,0.12)),
+        #0d141d;
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: inset 0 0 18px rgba(57,255,136,0.18);
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      padding: 0.55rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.93rem;
+      transition: background 160ms ease, color 160ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+      background: rgba(255,255,255,0.08);
+      outline: none;
+    }
+
+    .hero {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 5rem 1.25rem 2.25rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid rgba(57,255,136,0.28);
+      border-radius: 999px;
+      color: var(--accent);
+      background: rgba(57,255,136,0.08);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 1.2rem 0 1rem;
+      font-size: clamp(2.6rem, 8vw, 5.75rem);
+      line-height: 0.94;
+      letter-spacing: -0.085em;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2.2vw, 1.28rem);
+    }
+
+    .meta-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.25rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .meta-card {
+      background: rgba(16,24,35,0.76);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 1rem;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.22);
+    }
+
+    .meta-card span {
+      display: block;
+      color: var(--soft);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      margin-bottom: 0.2rem;
+    }
+
+    .meta-card strong {
+      display: block;
+      font-size: 0.98rem;
+      word-break: break-word;
+    }
+
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.25rem 5rem;
+    }
+
+    .policy-shell {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    .toc {
+      position: sticky;
+      top: 5.2rem;
+      background: rgba(11,16,23,0.82);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .toc h2 {
+      margin: 0 0 0.8rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--soft);
+    }
+
+    .toc a {
+      display: block;
+      color: var(--muted);
+      padding: 0.48rem 0.55rem;
+      border-radius: 12px;
+      font-size: 0.92rem;
+    }
+
+    .toc a:hover,
+    .toc a:focus-visible {
+      background: rgba(255,255,255,0.07);
+      color: var(--text);
+      outline: none;
+    }
+
+    .policy {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.04), transparent),
+        rgba(11,16,23,0.9);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    section {
+      padding: clamp(1.25rem, 3vw, 2.2rem);
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-child {
+      border-bottom: 0;
+    }
+
+    h2 {
+      margin: 0 0 0.9rem;
+      font-size: clamp(1.35rem, 2vw, 1.8rem);
+      line-height: 1.15;
+      letter-spacing: -0.045em;
+    }
+
+    h3 {
+      margin: 1.35rem 0 0.45rem;
+      font-size: 1.05rem;
+      letter-spacing: -0.025em;
+    }
+
+    p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul {
+      margin: 0.2rem 0 1rem;
+      padding-left: 1.25rem;
+      color: var(--muted);
+    }
+
+    li {
+      margin: 0.35rem 0;
+    }
+
+    .notice {
+      margin-top: 1.1rem;
+      padding: 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(57,255,136,0.24);
+      background: rgba(57,255,136,0.07);
+      color: #dfffea;
+    }
+
+    .notice strong {
+      color: var(--accent);
+    }
+
+    .contact-box {
+      margin-top: 1rem;
+      padding: 1.2rem;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid var(--line);
+    }
+
+    .contact-box a {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      color: var(--soft);
+      background: rgba(5,7,10,0.84);
+    }
+
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 2rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.92rem;
+    }
+
+    .footer-inner a {
+      color: var(--muted);
+    }
+
+    .footer-inner a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 840px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .meta-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .policy-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+      }
+
+      .toc nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.25rem;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hero {
+        padding-top: 3.5rem;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .toc nav {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 1.1rem;
+      }
+
+      .policy,
+      .toc {
+        border-radius: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to privacy policy</a>
+
+  <header>
+    <div class="nav" aria-label="Site navigation">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">OBD</span>
+        <span>DashUI OBD-II</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a href="/editor">Cluster Editor</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacy" aria-current="page">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <span class="eyebrow">Privacy Policy</span>
+    <h1>Privacy built around real diagnostics.</h1>
+    <p class="lead">
+      This Privacy Policy explains how DashUI OBD-II collects, uses, stores, and protects information related to
+      website use, app diagnostics, adapter compatibility, premium drive tracking, and vehicle datalogs.
+    </p>
+  </div>
+
+  <div class="meta-grid" aria-label="Policy details">
+    <div class="meta-card">
+      <span>Effective date</span>
+      <strong>May 23, 2026</strong>
+    </div>
+    <div class="meta-card">
+      <span>Website</span>
+      <strong>dashobd.com</strong>
+    </div>
+    <div class="meta-card">
+      <span>Product</span>
+      <strong>DashUI OBD-II / DashUI</strong>
+    </div>
+  </div>
+
+  <main id="main">
+    <div class="policy-shell">
+      <aside class="toc" aria-label="Privacy policy sections">
+        <h2>Sections</h2>
+        <nav>
+          <a href="#overview">Overview</a>
+          <a href="#information-we-collect">Information We Collect</a>
+          <a href="#how-we-use-information">How We Use Information</a>
+          <a href="#premium-features">Premium Features</a>
+          <a href="#sharing">How We Share Information</a>
+          <a href="#retention">Data Retention</a>
+          <a href="#security">Data Security</a>
+          <a href="#vehicle-data">Vehicle Data Notice</a>
+          <a href="#cookies">Cookies and Analytics</a>
+          <a href="#rights">Your Privacy Rights</a>
+          <a href="#children">Children’s Privacy</a>
+          <a href="#third-party">Third-Party Services</a>
+          <a href="#changes">Changes</a>
+          <a href="#contact">Contact Us</a>
+        </nav>
+      </aside>
+
+      <article class="policy">
+        <section id="overview">
+          <h2>1. Overview</h2>
+          <p>
+            DashUI OBD-II (“DashUI,” “we,” “our,” or “us”) respects your privacy. This Privacy Policy explains how we
+            collect, use, store, and protect information when you visit our website, use our app, connect an OBD-II
+            adapter, use diagnostic features, or access premium features.
+          </p>
+          <p>
+            By using DashUI, dashobd.com, or related services, you acknowledge that information may be collected and
+            processed as described in this Privacy Policy.
+          </p>
+        </section>
+
+        <section id="information-we-collect">
+          <h2>2. Information We Collect</h2>
+
+          <h3>Information You Provide</h3>
+          <p>We may collect information that you choose to provide, including:</p>
+          <ul>
+            <li>Name, username, or contact information, if provided.</li>
+            <li>Email address or other contact details when you contact support.</li>
+            <li>Feedback, bug reports, feature requests, questions, or messages you send us.</li>
+            <li>Account, license, or premium feature information, if applicable.</li>
+          </ul>
+
+          <h3>Vehicle and Diagnostic Data</h3>
+          <p>
+            When you use DashUI with an OBD-II adapter, the app may collect, process, display, or store vehicle-related
+            diagnostic data, including:
+          </p>
+          <ul>
+            <li>Diagnostic trouble codes, also known as DTCs.</li>
+            <li>Live vehicle sensor data and OBD-II parameter IDs, also known as PIDs.</li>
+            <li>Freeze-frame data, if supported by the vehicle.</li>
+            <li>Adapter type, adapter behavior, connection status, and compatibility information.</li>
+            <li>Vehicle protocol information.</li>
+            <li>ECU responses and diagnostic communication logs.</li>
+            <li>App performance data related to diagnostics and adapter communication.</li>
+          </ul>
+          <p>
+            This information helps us improve diagnostic accuracy, adapter compatibility, app performance, and reliability
+            across different vehicles and adapters.
+          </p>
+
+          <h3>Premium Drive Tracking and Datalog Features</h3>
+          <p>
+            If you enable premium features, DashUI may collect or process additional vehicle-use data, such as:
+          </p>
+          <ul>
+            <li>Trip and drive session history.</li>
+            <li>Speed, RPM, throttle position, fuel economy, temperature, and related vehicle values.</li>
+            <li>Timestamps and datalog entries.</li>
+            <li>Driving behavior data, such as acceleration, braking, or usage patterns.</li>
+            <li>Exported or saved vehicle datalogs.</li>
+            <li>Location or route-related data only when a feature requiring location is enabled and permission is granted.</li>
+          </ul>
+
+          <h3>Device, App, and Website Data</h3>
+          <p>We may collect technical information such as:</p>
+          <ul>
+            <li>Device model, operating system version, and app version.</li>
+            <li>IP address, browser type, and website usage information.</li>
+            <li>Crash reports, performance logs, and diagnostic error logs.</li>
+            <li>Cookies or similar website technologies.</li>
+          </ul>
+        </section>
+
+        <section id="how-we-use-information">
+          <h2>3. How We Use Information</h2>
+          <p>We use information to:</p>
+          <ul>
+            <li>Provide app and website functionality.</li>
+            <li>Read, display, and manage OBD-II diagnostic data.</li>
+            <li>Improve diagnostic accuracy and reliability.</li>
+            <li>Improve adapter compatibility.</li>
+            <li>Enable premium drive tracking and datalog features.</li>
+            <li>Save, export, or manage user-requested datalogs.</li>
+            <li>Troubleshoot bugs, crashes, adapter issues, and vehicle communication problems.</li>
+            <li>Respond to support requests.</li>
+            <li>Improve app performance and user experience.</li>
+            <li>Detect abuse, fraud, security issues, or misuse of the service.</li>
+            <li>Develop new features and improve existing features.</li>
+            <li>Comply with legal obligations.</li>
+          </ul>
+          <p>
+            We may also use aggregated or de-identified information to understand compatibility trends, common adapter
+            issues, diagnostic reliability, and general app performance.
+          </p>
+        </section>
+
+        <section id="premium-features">
+          <h2>4. Premium Features and User Choice</h2>
+          <p>
+            Certain features may require additional data collection to function properly. For example, drive habit
+            tracking, trip history, and vehicle datalogging may require storing or analyzing vehicle-use data over time.
+          </p>
+          <p>
+            Where required, these features depend on your settings, permissions, subscription status, or explicit use of
+            the feature. You may be able to disable certain tracking, logging, or premium features from within the app
+            settings.
+          </p>
+          <div class="notice">
+            <strong>Important:</strong> Location or route-related data is collected only when a feature requiring it is
+            enabled and the required device permission has been granted.
+          </div>
+        </section>
+
+        <section id="sharing">
+          <h2>5. How We Share Information</h2>
+          <p>
+            We do not sell your personal information. We may share information only in limited situations described below.
+          </p>
+
+          <h3>Service Providers</h3>
+          <p>
+            We may use trusted third-party service providers to help operate DashUI, including hosting, analytics, crash
+            reporting, payment or subscription processing, customer support, email tools, and cloud storage if cloud
+            features are offered.
+          </p>
+
+          <h3>App Stores and Payment Providers</h3>
+          <p>
+            If you purchase premium features, payment information may be processed by the applicable app store or payment
+            provider. We do not directly receive or store full payment card details unless explicitly stated otherwise.
+          </p>
+
+          <h3>Legal Compliance, Safety, and Security</h3>
+          <p>
+            We may disclose information if required by law, legal process, court order, governmental request, or when
+            necessary to protect our users, services, rights, property, or security.
+          </p>
+
+          <h3>Business Transfers</h3>
+          <p>
+            If DashUI is involved in a merger, acquisition, sale, restructuring, or transfer of assets, user information
+            may be transferred as part of that transaction.
+          </p>
+
+          <h3>Aggregated or De-Identified Data</h3>
+          <p>
+            We may share aggregated or de-identified information that cannot reasonably identify you, such as general
+            adapter compatibility statistics or diagnostic reliability trends.
+          </p>
+        </section>
+
+        <section id="retention">
+          <h2>6. Data Retention</h2>
+          <p>
+            We keep information only as long as reasonably necessary for the purposes described in this Privacy Policy,
+            including providing the app and website, supporting diagnostics and premium features, improving compatibility
+            and reliability, resolving support issues, meeting legal obligations, and maintaining security.
+          </p>
+          <p>
+            Diagnostic logs, crash reports, and support-related records may be retained for troubleshooting and product
+            improvement. User-created datalogs may remain stored until deleted by the user, removed through app settings,
+            or deleted by request where applicable.
+          </p>
+        </section>
+
+        <section id="security">
+          <h2>7. Data Security</h2>
+          <p>
+            We use reasonable administrative, technical, and organizational safeguards to protect information against
+            unauthorized access, loss, misuse, alteration, or disclosure.
+          </p>
+          <p>
+            However, no app, website, wireless adapter connection, or internet transmission is completely secure. You are
+            responsible for using trusted adapters, keeping your device secure, and avoiding sharing exported datalogs
+            with unintended parties.
+          </p>
+        </section>
+
+        <section id="vehicle-data">
+          <h2>8. Vehicle Data Notice</h2>
+          <p>
+            DashUI is designed to help users view and understand vehicle diagnostic information. Vehicle data can vary
+            depending on the vehicle, adapter, ECU behavior, manufacturer implementation, permissions, and connection
+            quality.
+          </p>
+          <p>
+            DashUI does not guarantee that all diagnostic information will be complete, accurate, available, or suitable
+            for every vehicle. Diagnostic information should be used responsibly and should not replace professional
+            mechanical inspection, repair advice, or safety judgment.
+          </p>
+        </section>
+
+        <section id="cookies">
+          <h2>9. Cookies and Website Analytics</h2>
+          <p>
+            Our website may use cookies, analytics tools, or similar technologies to understand site traffic, improve
+            performance, remember preferences, and maintain security.
+          </p>
+          <p>
+            You can usually control cookies through your browser settings. Disabling cookies may affect some website
+            functionality.
+          </p>
+        </section>
+
+        <section id="rights">
+          <h2>10. Your Privacy Rights</h2>
+          <p>
+            Depending on your location, you may have rights regarding your personal information, including the right to:
+          </p>
+          <ul>
+            <li>Request access to personal information we have about you.</li>
+            <li>Request correction of inaccurate information.</li>
+            <li>Request deletion of certain information.</li>
+            <li>Request a copy of your information.</li>
+            <li>Object to or restrict certain uses of your information.</li>
+            <li>Opt out of certain types of sharing, where applicable.</li>
+          </ul>
+          <p>
+            We may need to verify your request before taking action. Some information may be retained where required or
+            permitted by law, security needs, fraud prevention, dispute resolution, or legitimate business purposes.
+          </p>
+        </section>
+
+        <section id="children">
+          <h2>11. Children’s Privacy</h2>
+          <p>
+            DashUI is not intended for children under 13. We do not knowingly collect personal information from children
+            under 13. If we learn that we have collected personal information from a child under 13 without appropriate
+            consent, we will take reasonable steps to delete it.
+          </p>
+        </section>
+
+        <section id="third-party">
+          <h2>12. Third-Party Links and Services</h2>
+          <p>
+            Our website or app may link to third-party websites, app stores, adapters, services, or documentation. We are
+            not responsible for the privacy practices of third parties. You should review their privacy policies before
+            using those services.
+          </p>
+        </section>
+
+        <section id="changes">
+          <h2>13. Changes to This Privacy Policy</h2>
+          <p>
+            We may update this Privacy Policy from time to time. When we make changes, we will update the effective date
+            above.
+          </p>
+          <p>
+            Material changes may be communicated through the website, app, app store listing, or other reasonable methods.
+          </p>
+        </section>
+
+        <section id="contact">
+          <h2>14. Contact Us</h2>
+          <p>
+            For privacy questions, data requests, or support, please contact DashUI OBD-II through the website contact
+            page.
+          </p>
+          <div class="contact-box">
+            <p>
+              <strong>DashUI OBD-II</strong><br />
+              Website: <a href="https://dashobd.com">dashobd.com</a><br />
+              Privacy Contact: <a href="/contact">dashobd.com/contact</a>
+            </p>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>&copy; 2026 DashUI OBD-II. All rights reserved.</span>
+      <span>
+        <a href="/">Home</a> ·
+        <a href="/editor">Cluster Editor</a> ·
+        <a href="/contact">Contact</a>
+      </span>
+    </div>
+  </footer>
+</body>
+</html>
