@@ -177,7 +177,17 @@
   body[data-hud-mode="on"] .chip.set {
     display: none !important;
   }
-  body[data-hud-mode="on"] .chip.exit {
+  body[data-hud-mode="on"] .cluster .chrome {
+    transform: scaleX(-1); /* keep overlay controls readable while gauges are HUD-mirrored */
+    transform-origin: center;
+  }
+  body[data-hud-mode="on"] .chip.fullscreen-toggle {
+    background: rgba(57, 255, 20, 0.08) !important;
+    color: #39ff14 !important;
+    border-color: #39ff14 !important;
+    box-shadow: 0 0 18px rgba(57, 255, 20, 0.28) !important;
+  }
+  body[data-hud-mode="on"][data-fullscreen-mode="on"] .chip.fullscreen-toggle {
     background: transparent !important;
     color: #dc143c !important;
     border-color: #dc143c !important;
@@ -229,16 +239,116 @@
     color: var(--text-color);
     background: rgba(255,255,255,0.03);
     border: 1px solid var(--theme-dim);
+    appearance: none;
+    -webkit-appearance: none;
+    pointer-events: auto;
+    cursor: pointer;
+    user-select: none;
   }
-  .chip.exit {
+  .chip.fullscreen-toggle {
     top: 14px; left: 14px;
+    background: rgba(57, 255, 20, 0.10);
+    color: #39ff14;
+    border-color: #39ff14;
+    box-shadow: 0 0 18px rgba(57, 255, 20, 0.32);
+  }
+  .chip.fullscreen-toggle:hover {
+    background: rgba(57, 255, 20, 0.18);
+    box-shadow: 0 0 24px rgba(57, 255, 20, 0.42);
+  }
+  body[data-fullscreen-mode="on"] .chip.fullscreen-toggle {
     background: transparent;
     color: #dc143c;
     border-color: #dc143c;
     box-shadow: none;
   }
-  .chip.sim  { top: 14px; right: 100px; }
-  .chip.set  { top: 14px; right: 14px; }
+  body[data-fullscreen-mode="on"] .chip.fullscreen-toggle:hover {
+    background: rgba(220, 20, 60, 0.10);
+    box-shadow: 0 0 18px rgba(220, 20, 60, 0.22);
+  }
+  .rotation-controls {
+    position: absolute;
+    top: 11px;
+    left: 136px;
+    display: none;
+    align-items: center;
+    gap: 6px;
+    pointer-events: auto;
+    user-select: none;
+  }
+  body[data-fullscreen-mode="on"] .rotation-controls {
+    display: inline-flex;
+  }
+  .rotation-cycle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(57, 255, 20, 0.78);
+    background: rgba(57, 255, 20, 0.08);
+    color: #39ff14;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    box-shadow: 0 0 14px rgba(57, 255, 20, 0.22);
+    transition: transform 0.15s ease, border-color 0.2s, color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+  .rotation-cycle:hover {
+    background: rgba(57, 255, 20, 0.16);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.36);
+    transform: translateY(-1px);
+  }
+  .rotation-cycle:active { transform: translateY(0) scale(0.96); }
+  .rotation-cycle svg {
+    width: 21px;
+    height: 21px;
+    display: block;
+    overflow: visible;
+  }
+  .rotation-cycle path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.35;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  body[data-fullscreen-mode="on"] .rotation-cycle {
+    border-color: rgba(57, 255, 20, 0.86);
+    background: rgba(0,0,0,0.36);
+    color: #39ff14;
+  }
+  .cluster:fullscreen,
+  .cluster:-webkit-full-screen {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    aspect-ratio: auto !important;
+    background: #000 !important;
+    box-shadow: none !important;
+  }
+  .cluster:fullscreen .grid,
+  .cluster:fullscreen .vignette,
+  .cluster:-webkit-full-screen .grid,
+  .cluster:-webkit-full-screen .vignette {
+    display: none !important;
+  }
+  .cluster:fullscreen .chip.sim,
+  .cluster:fullscreen .chip.set,
+  .cluster:-webkit-full-screen .chip.sim,
+  .cluster:-webkit-full-screen .chip.set {
+    display: none !important;
+  }
+  .chip.sim  { top: 14px; right: 100px; cursor: default; }
+  .chip.set  { top: 14px; right: 14px; cursor: default; }
 
   /* ============== premium feature panel ============== */
   .premium {
@@ -1063,7 +1173,23 @@
     </svg>
 
     <div class="chrome">
-      <div class="chip exit">EXIT</div>
+      <button class="chip fullscreen-toggle" id="fullscreen-toggle" type="button" aria-label="Fullscreen gauges at the selected rotation">FULLSCREEN</button>
+      <div class="rotation-controls" id="rotation-controls" aria-label="Cycle screen rotation">
+        <button class="rotation-cycle rotation-prev" id="rotation-prev" type="button" title="Previous rotation" aria-label="Previous rotation">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8.2 7.2A7.2 7.2 0 1 1 6 12.4" />
+            <path d="M8.2 7.2l.1 4.4" />
+            <path d="M8.2 7.2l-4.4.1" />
+          </svg>
+        </button>
+        <button class="rotation-cycle rotation-next" id="rotation-next" type="button" title="Next rotation" aria-label="Next rotation">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M15.8 7.2A7.2 7.2 0 1 0 18 12.4" />
+            <path d="M15.8 7.2l-.1 4.4" />
+            <path d="M15.8 7.2l4.4.1" />
+          </svg>
+        </button>
+      </div>
       <div class="chip sim">SIM</div>
       <div class="chip set">SETTINGS</div>
     </div>
@@ -1574,6 +1700,7 @@ function activateRotation(r) {
   });
   const lbl = document.getElementById('active-rotation-label');
   if (lbl) lbl.textContent = ROTATION_LABEL[r];
+  if (typeof updateFullscreenControl === 'function') updateFullscreenControl();
   // sync the per-rotation pickers (layout, tach) too — they reflect this rotation's values
   syncPerRotationPickersFromState();
   // rebuild whichever designer panel is currently visible
@@ -3836,6 +3963,64 @@ function loop() {
 //  ============================================================
 //  CONTROL WIRING
 //  ============================================================
+function isGaugeFullscreen() {
+  return document.fullscreenElement === clusterEl || document.webkitFullscreenElement === clusterEl;
+}
+
+function cycleRotation(direction) {
+  const i = ROTATIONS.indexOf(state.activeRotation);
+  const safeIndex = i >= 0 ? i : 0;
+  const nextIndex = (safeIndex + direction + ROTATIONS.length) % ROTATIONS.length;
+  activateRotation(ROTATIONS[nextIndex]);
+  persist();
+  commitHistory();
+}
+
+async function enterGaugeFullscreen() {
+  try {
+    if (clusterEl.requestFullscreen) await clusterEl.requestFullscreen();
+    else if (clusterEl.webkitRequestFullscreen) await clusterEl.webkitRequestFullscreen();
+  } catch (err) {
+    console.warn('Unable to enter fullscreen mode:', err);
+  } finally {
+    updateFullscreenControl();
+  }
+}
+
+async function exitGaugeFullscreen() {
+  try {
+    if (document.exitFullscreen) await document.exitFullscreen();
+    else if (document.webkitExitFullscreen) await document.webkitExitFullscreen();
+  } catch (err) {
+    console.warn('Unable to exit fullscreen mode:', err);
+  } finally {
+    updateFullscreenControl();
+  }
+}
+
+function updateFullscreenControl() {
+  const btn = document.getElementById('fullscreen-toggle');
+  const prev = document.getElementById('rotation-prev');
+  const next = document.getElementById('rotation-next');
+  const fs = isGaugeFullscreen();
+  const label = ROTATION_LABEL[state.activeRotation] || `${state.activeRotation}°`;
+  document.body.setAttribute('data-fullscreen-mode', fs ? 'on' : 'off');
+
+  if (btn) {
+    btn.textContent = fs ? 'EXIT' : 'FULLSCREEN';
+    btn.title = fs ? 'Exit fullscreen and return to the editor' : `Fullscreen gauges at ${label}`;
+    btn.setAttribute('aria-label', btn.title);
+  }
+  if (prev) {
+    prev.title = `Previous rotation from ${label}`;
+    prev.setAttribute('aria-label', prev.title);
+  }
+  if (next) {
+    next.title = `Next rotation from ${label}`;
+    next.setAttribute('aria-label', next.title);
+  }
+}
+
 function bindSegPicker(id, key) {
   const root = document.getElementById(id);
   if (!root) return;   // missing picker element must not abort the rest of the script
@@ -3862,6 +4047,34 @@ document.getElementById('units-picker').addEventListener('click', () => {
   // control/panel so the whole page changes between metric and standard together.
   setTimeout(() => { syncUnitAwareControls(); rebuildActivePanel(); persist(); }, 0);
 });
+
+const fullscreenToggle = document.getElementById('fullscreen-toggle');
+if (fullscreenToggle) {
+  fullscreenToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isGaugeFullscreen()) exitGaugeFullscreen();
+    else enterGaugeFullscreen();
+  });
+}
+const rotationPrevBtn = document.getElementById('rotation-prev');
+const rotationNextBtn = document.getElementById('rotation-next');
+if (rotationPrevBtn) {
+  rotationPrevBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    cycleRotation(-1);
+  });
+}
+if (rotationNextBtn) {
+  rotationNextBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    cycleRotation(1);
+  });
+}
+document.addEventListener('fullscreenchange', updateFullscreenControl);
+document.addEventListener('webkitfullscreenchange', updateFullscreenControl);
 
 // ---- ADD / REMOVE / PICK SENSOR --------------------------------------
 document.getElementById('btn-remove-gauge').addEventListener('click', () => {
@@ -4555,6 +4768,7 @@ function refreshAllControls() {
   clusterEl.classList.toggle('portrait', vb.h > vb.w);
   const lbl = document.getElementById('active-rotation-label');
   if (lbl) lbl.textContent = ROTATION_LABEL[state.activeRotation];
+  updateFullscreenControl();
   // rotation picker
   document.querySelectorAll('#rotation-picker button').forEach(b => {
     b.classList.toggle('active', parseInt(b.dataset.val, 10) === state.activeRotation);
@@ -4970,7 +5184,7 @@ function renderSelectionOverlay() {
 //      and direct modes; pure tap-and-release never disturbs the gauge.
 clusterEl.addEventListener('pointerdown', (e) => {
   if (state.editorMode !== 'inspector' && state.editorMode !== 'direct') return;
-  if (e.target.closest('.chip')) return;
+  if (e.target.closest('.chip') || e.target.closest('.rotation-controls')) return;
   if (e.target.closest('.direct-pill')) return;
   // Text drag: clicking a label/value/unit on any gauge moves it via its
   // per-slot Dx/Dy offsets. Works in both inspector + direct modes.
@@ -5655,6 +5869,7 @@ updateHistoryButtons();
 // Apply the (possibly restored) active rotation: sets SVG viewBox,
 // portrait class, rotation-picker highlight, and rotation-hint label.
 activateRotation(state.activeRotation);
+updateFullscreenControl();
 
 // Start the continuous animation loop last
 loop();
