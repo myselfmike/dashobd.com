@@ -921,10 +921,10 @@
     <div class="ctrl-block" style="grid-column: 1 / -1;">
       <span class="ctrl-label">Screen rotation — each rotation has its own configuration</span>
       <div class="seg-picker" id="rotation-picker">
-        <button data-val="0"   class="active">0° · landscape</button>
-        <button data-val="90">90° · portrait</button>
-        <button data-val="180">180° · landscape</button>
-        <button data-val="270">270° · portrait</button>
+        <button data-val="0">0° · portrait</button>
+        <button data-val="90" class="active">90° · landscape</button>
+        <button data-val="180">180° · portrait</button>
+        <button data-val="270">270° · landscape</button>
       </div>
     </div>
 
@@ -1403,16 +1403,16 @@ const defaults = {
 
 const ROTATIONS = [0, 90, 180, 270];
 const VIEWBOX = {
-  0:   { w: 1843, h: 853  },
-  90:  { w: 853,  h: 1843 },
-  180: { w: 1843, h: 853  },
-  270: { w: 853,  h: 1843 },
+  0:   { w: 853,  h: 1843 },
+  90:  { w: 1843, h: 853  },
+  180: { w: 853,  h: 1843 },
+  270: { w: 1843, h: 853  },
 };
 const ROTATION_LABEL = {
-  0:   '0° · landscape',
-  90:  '90° · portrait',
-  180: '180° · landscape',
-  270: '270° · portrait',
+  0:   '0° · portrait',
+  90:  '90° · landscape',
+  180: '180° · portrait',
+  270: '270° · landscape',
 };
 
 const POSITIONAL_KEYS_LIST = [
@@ -1442,7 +1442,7 @@ const PER_ROTATION_ALL_SET = new Set(PER_ROTATION_ALL);
 // Portrait positional overrides — sensible default tune for the 853×1843
 // portrait viewBox. Stacked gauge column down the center, tach near top.
 // Portrait positional defaults generated from dashui-cluster-config(2).json.
-// Rotations 90° and 270° use these positions/sizes by default.
+// Rotations 0° and 180° use these positions/sizes by default (Android ROTATION_0/ROTATION_2 = natural portrait).
 const PORTRAIT_POSITIONAL = {
   "tachArcX": 402,
   "tachArcY": 1063.1834091403684,
@@ -1469,7 +1469,7 @@ const PORTRAIT_POSITIONAL = {
 function makeRotationConfig(rotation) {
   const cfg = {};
   for (const k of PER_ROTATION_ALL) cfg[k] = defaults[k];
-  if (rotation === 90 || rotation === 270) Object.assign(cfg, PORTRAIT_POSITIONAL);
+  if (rotation === 0 || rotation === 180) Object.assign(cfg, PORTRAIT_POSITIONAL);
   return cfg;
 }
 
@@ -1478,7 +1478,7 @@ function makeRotationConfig(rotation) {
 // continue to read state.foo directly) and routes writes through to
 // rotations[r] (positional) or all rotations (broadcast).
 const realState = {
-  activeRotation: 0,
+  activeRotation: 90,
   rotations: {
     0:   makeRotationConfig(0),
     90:  makeRotationConfig(90),
@@ -1488,7 +1488,7 @@ const realState = {
 };
 for (const k of Object.keys(defaults)) {
   realState[k] = PER_ROTATION_ALL_SET.has(k)
-    ? realState.rotations[0][k]
+    ? realState.rotations[90][k]
     : defaults[k];
 }
 
@@ -1597,28 +1597,28 @@ function syncPerRotationPickersFromState() {
 // This file intentionally uses the embedded config first so older browser
 // localStorage values cannot override the layout you exported.
 const EMBEDDED_STARTUP_CONFIG = {
-  "activeRotation": 0,
+  "activeRotation": 90,
   "rotations": {
     "0": {
-      "tachArcX": 845,
-      "tachArcY": 1762.544176316908,
-      "tachBarX": 42.270000000000095,
-      "tachBarY": 105,
-      "gauge1X": 200,
-      "gauge1Y": 650,
-      "gauge2X": 655,
-      "gauge2Y": 570,
-      "gauge3X": 1188,
-      "gauge3Y": 570,
-      "gauge4X": 1643,
-      "gauge4Y": 650,
-      "gaugeSmallSize": 350,
-      "gaugeLargeSize": 510,
-      "archStartH": 46,
-      "archEndH": 224,
-      "barH": 100,
-      "tachArcWidthPct": 84,
-      "tachBarWidthPct": 95,
+      "tachArcX": 402,
+      "tachArcY": 1063.1834091403684,
+      "tachBarX": 70,
+      "tachBarY": 245,
+      "gauge1X": 635,
+      "gauge1Y": 1420,
+      "gauge2X": 220,
+      "gauge2Y": 825,
+      "gauge3X": 630.0218978842452,
+      "gauge3Y": 825,
+      "gauge4X": 215,
+      "gauge4Y": 1420,
+      "gaugeSmallSize": 342,
+      "gaugeLargeSize": 392,
+      "archStartH": 50,
+      "archEndH": 110,
+      "barH": 80,
+      "tachArcWidthPct": 83,
+      "tachBarWidthPct": 83,
       "layout": "balanced",
       "tach": "arc",
       "hudMode": false,
@@ -1694,106 +1694,9 @@ const EMBEDDED_STARTUP_CONFIG = {
       "gauge4ScaleMin": null,
       "gauge4ScaleMax": null,
       "gaugeScaleInset": 58,
-      "tachWidthPct": 80
+      "tachWidthPct": 83
     },
     "90": {
-      "tachArcX": 402,
-      "tachArcY": 1063.1834091403684,
-      "tachBarX": 70,
-      "tachBarY": 245,
-      "gauge1X": 635,
-      "gauge1Y": 1420,
-      "gauge2X": 220,
-      "gauge2Y": 825,
-      "gauge3X": 630.0218978842452,
-      "gauge3Y": 825,
-      "gauge4X": 215,
-      "gauge4Y": 1420,
-      "gaugeSmallSize": 342,
-      "gaugeLargeSize": 392,
-      "archStartH": 50,
-      "archEndH": 110,
-      "barH": 80,
-      "tachArcWidthPct": 83,
-      "tachBarWidthPct": 83,
-      "layout": "balanced",
-      "tach": "arc",
-      "hudMode": false,
-      "editMode": false,
-      "needlesEnabled": false,
-      "needleCenterReadout": false,
-      "gauge1Enabled": true,
-      "gauge2Enabled": true,
-      "gauge3Enabled": true,
-      "gauge4Enabled": true,
-      "gauge1Sensor": null,
-      "gauge2Sensor": null,
-      "gauge3Sensor": null,
-      "gauge4Sensor": null,
-      "archHalfDeg": 27.5,
-      "archGrowthExp": 3.9,
-      "archSegThickness": 0.82,
-      "archSegTilt": 24,
-      "archSegTiltExp": 1,
-      "archLabelOffset": 27,
-      "barGap": 4,
-      "segCount": 50,
-      "tachLabelFontSize": 30,
-      "tachBarLabelDy": 0,
-      "tachHeaderSize": 12,
-      "tachHeaderDy": 0,
-      "gauge1LabelDx": 0,
-      "gauge1LabelDy": 100,
-      "gauge1LabelSize": 28,
-      "gauge1ValueDx": 0,
-      "gauge1ValueDy": 38,
-      "gauge1ValueSize": 110,
-      "gauge1UnitDx": 0,
-      "gauge1UnitDy": 50,
-      "gauge1UnitSize": 24,
-      "gauge2LabelDx": 0,
-      "gauge2LabelDy": 199.69262877184838,
-      "gauge2LabelSize": 32,
-      "gauge2ValueDx": 0,
-      "gauge2ValueDy": 47,
-      "gauge2ValueSize": 140,
-      "gauge2UnitDx": 0,
-      "gauge2UnitDy": -100,
-      "gauge2UnitSize": 14,
-      "gauge3LabelDx": 0,
-      "gauge3LabelDy": 199.69262877184826,
-      "gauge3LabelSize": 32,
-      "gauge3ValueDx": 0,
-      "gauge3ValueDy": 46.8351546421635,
-      "gauge3ValueSize": 140,
-      "gauge3UnitDx": 0,
-      "gauge3UnitDy": 62,
-      "gauge3UnitSize": 14,
-      "gauge4LabelDx": 0,
-      "gauge4LabelDy": 100,
-      "gauge4LabelSize": 28,
-      "gauge4ValueDx": 0,
-      "gauge4ValueDy": 38,
-      "gauge4ValueSize": 110,
-      "gauge4UnitDx": 0,
-      "gauge4UnitDy": 63,
-      "gauge4UnitSize": 24,
-      "gauge1ScaleSize": 22,
-      "gauge1ScaleMin": null,
-      "gauge1ScaleMax": null,
-      "gauge2ScaleSize": 24,
-      "gauge2ScaleMin": null,
-      "gauge2ScaleMax": null,
-      "gauge3ScaleSize": 24,
-      "gauge3ScaleMin": null,
-      "gauge3ScaleMax": null,
-      "gauge4ScaleSize": 22,
-      "gauge4ScaleMin": null,
-      "gauge4ScaleMax": null,
-      "gaugeScaleInset": 58,
-      "tachWidthPct": 83
-    },
-    "180": {
       "tachArcX": 845,
       "tachArcY": 1762.544176316908,
       "tachBarX": 42.270000000000095,
@@ -1890,7 +1793,7 @@ const EMBEDDED_STARTUP_CONFIG = {
       "gaugeScaleInset": 58,
       "tachWidthPct": 80
     },
-    "270": {
+    "180": {
       "tachArcX": 402,
       "tachArcY": 1063.1834091403684,
       "tachBarX": 70,
@@ -1986,6 +1889,103 @@ const EMBEDDED_STARTUP_CONFIG = {
       "gauge4ScaleMax": null,
       "gaugeScaleInset": 58,
       "tachWidthPct": 83
+    },
+    "270": {
+      "tachArcX": 845,
+      "tachArcY": 1762.544176316908,
+      "tachBarX": 42.270000000000095,
+      "tachBarY": 105,
+      "gauge1X": 200,
+      "gauge1Y": 650,
+      "gauge2X": 655,
+      "gauge2Y": 570,
+      "gauge3X": 1188,
+      "gauge3Y": 570,
+      "gauge4X": 1643,
+      "gauge4Y": 650,
+      "gaugeSmallSize": 350,
+      "gaugeLargeSize": 510,
+      "archStartH": 46,
+      "archEndH": 224,
+      "barH": 100,
+      "tachArcWidthPct": 84,
+      "tachBarWidthPct": 95,
+      "layout": "balanced",
+      "tach": "arc",
+      "hudMode": false,
+      "editMode": false,
+      "needlesEnabled": false,
+      "needleCenterReadout": false,
+      "gauge1Enabled": true,
+      "gauge2Enabled": true,
+      "gauge3Enabled": true,
+      "gauge4Enabled": true,
+      "gauge1Sensor": null,
+      "gauge2Sensor": null,
+      "gauge3Sensor": null,
+      "gauge4Sensor": null,
+      "archHalfDeg": 27.5,
+      "archGrowthExp": 3.9,
+      "archSegThickness": 0.82,
+      "archSegTilt": 24,
+      "archSegTiltExp": 1,
+      "archLabelOffset": 27,
+      "barGap": 4,
+      "segCount": 50,
+      "tachLabelFontSize": 30,
+      "tachBarLabelDy": 0,
+      "tachHeaderSize": 12,
+      "tachHeaderDy": 0,
+      "gauge1LabelDx": 0,
+      "gauge1LabelDy": 100,
+      "gauge1LabelSize": 28,
+      "gauge1ValueDx": 0,
+      "gauge1ValueDy": 38,
+      "gauge1ValueSize": 110,
+      "gauge1UnitDx": 0,
+      "gauge1UnitDy": 50,
+      "gauge1UnitSize": 24,
+      "gauge2LabelDx": 0,
+      "gauge2LabelDy": 199.69262877184838,
+      "gauge2LabelSize": 32,
+      "gauge2ValueDx": 0,
+      "gauge2ValueDy": 47,
+      "gauge2ValueSize": 140,
+      "gauge2UnitDx": 0,
+      "gauge2UnitDy": -100,
+      "gauge2UnitSize": 14,
+      "gauge3LabelDx": 0,
+      "gauge3LabelDy": 199.69262877184826,
+      "gauge3LabelSize": 32,
+      "gauge3ValueDx": 0,
+      "gauge3ValueDy": 46.8351546421635,
+      "gauge3ValueSize": 140,
+      "gauge3UnitDx": 0,
+      "gauge3UnitDy": 62,
+      "gauge3UnitSize": 14,
+      "gauge4LabelDx": 0,
+      "gauge4LabelDy": 100,
+      "gauge4LabelSize": 28,
+      "gauge4ValueDx": 0,
+      "gauge4ValueDy": 38,
+      "gauge4ValueSize": 110,
+      "gauge4UnitDx": 0,
+      "gauge4UnitDy": 63,
+      "gauge4UnitSize": 24,
+      "gauge1ScaleSize": 22,
+      "gauge1ScaleMin": null,
+      "gauge1ScaleMax": null,
+      "gauge2ScaleSize": 24,
+      "gauge2ScaleMin": null,
+      "gauge2ScaleMax": null,
+      "gauge3ScaleSize": 24,
+      "gauge3ScaleMin": null,
+      "gauge3ScaleMax": null,
+      "gauge4ScaleSize": 22,
+      "gauge4ScaleMin": null,
+      "gauge4ScaleMax": null,
+      "gaugeScaleInset": 58,
+      "tachWidthPct": 80
     }
   },
   "theme": "#22d3ee",
